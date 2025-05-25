@@ -130,4 +130,4 @@ Developed for university review. Contributions welcome!
 
 ## License
 
-MIT License (add your license if needed)
+MIT License 
