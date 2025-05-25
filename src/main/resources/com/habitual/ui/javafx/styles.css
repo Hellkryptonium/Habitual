@@ -1,0 +1,65 @@
+/* Basic styling for Habitual App */
+
+.root, .root-pane {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-base: #2a2a2a;
+    -fx-background: #2a2a2a;
+    -fx-control-inner-background: #3c3c3c;
+    -fx-accent: #007bff;
+    -fx-focus-color: #007bff;
+    -fx-faint-focus-color: #007bff22;
+}
+
+.label, .form-label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+.title-label {
+    -fx-text-fill: #007bff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.button-futuristic, .button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15 8 15;
+}
+
+.button-futuristic:hover, .button:hover {
+    -fx-background-color: derive(-fx-accent, 20%);
+}
+
+.text-field-futuristic, .text-field, .password-field {
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #a0a0a0;
+    -fx-background-radius: 5;
+    -fx-border-color: #555555;
+    -fx-border-radius: 5;
+}
+
+.text-field-futuristic:focused, .text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent;
+    -fx-border-width: 1.5px;
+}
+
+.error-label {
+    -fx-text-fill: #ff6b6b;
+    -fx-font-size: 12px;
+}
+
+.link-button-futuristic {
+    -fx-background-color: transparent;
+    -fx-text-fill: #007bff;
+    -fx-underline: true;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 0 0 0 0;
+}
+
+.link-button-futuristic:hover {
+    -fx-text-fill: #0056b3;
+}

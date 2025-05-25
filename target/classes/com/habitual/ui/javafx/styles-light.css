@@ -1,0 +1,41 @@
+/* Light mode theme for Habitual App */
+.root, .root-pane {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-base: #f4f4f4;
+    -fx-background: #f4f4f4;
+    -fx-control-inner-background: #ffffff;
+    -fx-accent: #007bff;
+    -fx-focus-color: #007bff;
+    -fx-faint-focus-color: #007bff22;
+}
+.label, .form-label {
+    -fx-text-fill: #222;
+    -fx-font-size: 14px;
+}
+.title-label {
+    -fx-text-fill: #007bff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+.button-futuristic, .button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15 8 15;
+}
+.button-futuristic:hover, .button:hover {
+    -fx-background-color: #0056b3;
+}
+.text-field-futuristic, .password-field-futuristic {
+    -fx-background-color: #fff;
+    -fx-text-fill: #222;
+    -fx-border-color: #007bff;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8 10 8 10;
+}
+.error-label {
+    -fx-text-fill: #d32f2f;
+    -fx-font-size: 13px;
+}

@@ -1,0 +1,62 @@
+/* Basic styling for Habitual App */
+
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-base: #2a2a2a; /* Dark background */
+    -fx-background: #2a2a2a;
+    -fx-control-inner-background: #3c3c3c; /* Slightly lighter for input fields */
+    -fx-accent: #007bff; /* Accent color for buttons, highlights */
+    -fx-focus-color: #007bff;
+    -fx-faint-focus-color: #007bff22;
+}
+
+.label {
+    -fx-text-fill: #e0e0e0; /* Light text for dark background */
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-background-color: -fx-accent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15 8 15;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-accent, 20%);
+}
+
+.text-field, .password-field {
+    -fx-text-fill: #e0e0e0; /* Light text for input */
+    -fx-prompt-text-fill: #a0a0a0; /* Lighter for prompt text */
+    -fx-background-radius: 5;
+    -fx-border-color: #555555;
+    -fx-border-radius: 5;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -fx-accent;
+    -fx-border-width: 1.5px;
+}
+
+.error-label {
+    -fx-text-fill: #ff6b6b; /* Red for error messages */
+    -fx-font-size: 12px;
+}
+
+/* Futuristic elements (placeholders, to be expanded) */
+.futuristic-panel {
+    -fx-background-color: linear-gradient(to bottom right, #3c3c3c, #2a2a2a);
+    -fx-border-color: -fx-accent;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 2);
+}
+
+.futuristic-title {
+    -fx-font-size: 24px;
+    -fx-text-fill: -fx-accent;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,123,255,0.5), 5, 0, 0, 1);
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="addTaskPane" alignment="TOP_LEFT" spacing="15.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.AddTaskViewController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label text="Add New Task" styleClass="futuristic-title">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </Label>
+
+    <Label text="Task Name:" styleClass="label" />
+    <TextField fx:id="taskNameField" promptText="e.g., Project Deadline" maxWidth="400" />
+
+    <Label text="Description (Optional):" styleClass="label" />
+    <TextArea fx:id="taskDescriptionArea" promptText="e.g., Submit Phase 1 report" maxWidth="400" prefHeight="80" wrapText="true" />
+
+    <Label text="Due Date:" styleClass="label" />
+    <DatePicker fx:id="taskDueDatepicker" promptText="Select Due Date" maxWidth="400" />
+    
+    <Label text="Due Time (HH:MM, Optional):" styleClass="label" />
+    <TextField fx:id="taskDueTimeField" promptText="e.g., 17:00" maxWidth="150" />
+
+    <Label fx:id="statusLabel" styleClass="label" />
+
+    <Button fx:id="saveTaskButton" onAction="#handleSaveTaskAction" text="Save Task" styleClass="button" />
+
+</VBox>

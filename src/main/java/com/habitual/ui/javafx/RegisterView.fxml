@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="20.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.RegisterViewController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label styleClass="futuristic-title" text="Create Account" />
+
+    <TextField fx:id="usernameField" promptText="Username" maxWidth="300" />
+    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300" />
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" maxWidth="300" />
+
+    <Label fx:id="errorLabel" styleClass="error-label" />
+
+    <Button fx:id="registerButton" onAction="#handleRegisterButtonAction" text="Register" />
+    <Button fx:id="backToLoginButton" onAction="#handleBackToLoginNavigation" text="Back to Login" styleClass="button-link" />
+
+</VBox>
