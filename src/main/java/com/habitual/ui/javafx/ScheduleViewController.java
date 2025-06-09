@@ -25,6 +25,8 @@ public class ScheduleViewController {
     @FXML
     private Button refreshTasksButton;
     @FXML
+    private Button deleteTaskButton;
+    @FXML
     private Label statusLabel;
 
     private ScheduleService scheduleService;
@@ -39,6 +41,7 @@ public class ScheduleViewController {
             statusLabel.setStyle("-fx-text-fill: red;");
             markTaskCompleteButton.setDisable(true);
             refreshTasksButton.setDisable(true);
+            deleteTaskButton.setDisable(true);
             return;
         }
         scheduleService = new ScheduleService(conn);
@@ -68,6 +71,8 @@ public class ScheduleViewController {
 
         tasksListView.setItems(observableTasksList);
         loadTasks();
+
+        deleteTaskButton.setOnAction(e -> handleDeleteTaskAction());
     }
 
     @FXML
@@ -118,6 +123,25 @@ public class ScheduleViewController {
             loadTasks(); // Refresh the list to show updated status
         } else {
             statusLabel.setText("Failed to mark task complete. Database error occurred.");
+            statusLabel.setStyle("-fx-text-fill: red;");
+        }
+    }
+
+    @FXML
+    protected void handleDeleteTaskAction() {
+        ScheduledTask selectedTask = tasksListView.getSelectionModel().getSelectedItem();
+        if (selectedTask == null) {
+            statusLabel.setText("Please select a task to delete.");
+            statusLabel.setStyle("-fx-text-fill: orange;");
+            return;
+        }
+        boolean deleted = scheduleService.deleteTask(selectedTask.getId());
+        if (deleted) {
+            statusLabel.setText("Task '" + selectedTask.getTitle() + "' deleted.");
+            statusLabel.setStyle("-fx-text-fill: green;");
+            loadTasks();
+        } else {
+            statusLabel.setText("Failed to delete task. Database error.");
             statusLabel.setStyle("-fx-text-fill: red;");
         }
     }

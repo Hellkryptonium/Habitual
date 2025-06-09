@@ -93,6 +93,19 @@ public class DatabaseConnector {
             stmt.executeUpdate(createScheduledTasksTable);
             System.out.println("Scheduled tasks table checked/created.");
 
+            // Create notes table
+            String createNotesTable = "CREATE TABLE IF NOT EXISTS notes ("
+                    + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                    + "user_id INT NOT NULL,"
+                    + "title VARCHAR(255) NOT NULL,"
+                    + "content TEXT,"
+                    + "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                    + "updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
+                    + "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+                    + ")";
+            stmt.executeUpdate(createNotesTable);
+            System.out.println("Notes table checked/created.");
+
             System.out.println("Database schema initialized successfully.");
 
         } catch (SQLException e) {

@@ -72,5 +72,16 @@ public class ScheduleService {
         }
     }
 
-    // You can add other methods like updateTask, deleteTask, etc.
+    public boolean deleteTask(int taskId) {
+        String sql = "DELETE FROM scheduled_tasks WHERE id = ?";
+        try (PreparedStatement pstmt = dbConnection.prepareStatement(sql)) {
+            pstmt.setInt(1, taskId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // You can add other methods like updateTask, etc.
 }

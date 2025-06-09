@@ -42,28 +42,44 @@ public class AddHabitViewController {
         statusLabel.setText(""); // Clear any previous status
 
         // Real-time validation for habit name
-        habitNameField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.trim().isEmpty()) {
+        habitNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.trim().isEmpty()) {
+                saveHabitButton.setDisable(true);
+                // Only show error if field is empty and not focused
+                if (!habitNameField.isFocused()) {
                     statusLabel.setText("Habit name cannot be empty.");
                     statusLabel.setStyle("-fx-text-fill: red;");
-                    saveHabitButton.setDisable(true);
                 } else {
                     statusLabel.setText("");
-                    saveHabitButton.setDisable(false);
                 }
+            } else {
+                statusLabel.setText("");
+                saveHabitButton.setDisable(false);
             }
         });
-    }
-
-    @FXML
+    }    @FXML
     protected void handleSaveHabitAction() {
         String habitName = habitNameField.getText();
         String description = habitDescriptionArea.getText();
-
-        if (habitName.isEmpty()) {
+        
+        // Enhanced validation
+        if (habitName == null || habitName.trim().isEmpty()) {
             statusLabel.setText("Habit name cannot be empty.");
+            statusLabel.setStyle("-fx-text-fill: red;");
+            habitNameField.requestFocus();
+            return;
+        }
+        
+        // Validate name length
+        if (habitName.trim().length() > 100) {
+            statusLabel.setText("Habit name too long (max 100 characters).");
+            statusLabel.setStyle("-fx-text-fill: red;");
+            return;
+        }
+        
+        // Check for invalid characters that might cause SQL problems
+        if (habitName.contains("'") || habitName.contains("\"") || habitName.contains(";")) {
+            statusLabel.setText("Habit name contains invalid characters (' \" ;).");
             statusLabel.setStyle("-fx-text-fill: red;");
             return;
         }
@@ -71,23 +87,31 @@ public class AddHabitViewController {
         if (!userSession.isLoggedIn()) {
             statusLabel.setText("Error: No user logged in. Please log in again.");
             statusLabel.setStyle("-fx-text-fill: red;");
-            // Optionally, redirect to login
             return;
         }
 
-        String defaultFrequency = "Daily"; // Default frequency
+        try {
+            String defaultFrequency = "Daily"; // Default frequency
+            boolean success = habitService.addHabit(userSession.getUserId(), habitName.trim(), description, defaultFrequency, java.time.LocalDate.now());
 
-        boolean success = habitService.addHabit(userSession.getUserId(), habitName, description, defaultFrequency);
-
-        if (success) {
-            statusLabel.setText("Habit '" + habitName + "' added successfully!");
-            statusLabel.setStyle("-fx-text-fill: green;");
-            // Clear fields after successful save
-            habitNameField.clear();
-            habitDescriptionArea.clear();
-        } else {
-            statusLabel.setText("Failed to add habit. It might already exist or a database error occurred.");
+            if (success) {
+                statusLabel.setText("Habit '" + habitName + "' added successfully!");
+                statusLabel.setStyle("-fx-text-fill: green;");
+                // Clear fields after successful save
+                habitNameField.clear();
+                habitDescriptionArea.clear();
+                // Set focus back to name field for next entry
+                habitNameField.requestFocus();
+                // Disable save button until new input
+                saveHabitButton.setDisable(true);
+            } else {
+                statusLabel.setText("Failed to add habit. It might already exist.");
+                statusLabel.setStyle("-fx-text-fill: red;");
+            }
+        } catch (Exception e) {
+            statusLabel.setText("Error: " + e.getMessage());
             statusLabel.setStyle("-fx-text-fill: red;");
+            e.printStackTrace();
         }
     }
 }

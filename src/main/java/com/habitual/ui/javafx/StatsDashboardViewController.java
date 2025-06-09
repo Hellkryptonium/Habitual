@@ -10,6 +10,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 
 import java.sql.Connection;
 import java.util.List;
@@ -23,6 +24,8 @@ public class StatsDashboardViewController {
     private CategoryAxis habitNameAxis;
     @FXML
     private NumberAxis streakAxis;
+    @FXML
+    private Label weeklyStatsLabel;
 
     private HabitService habitService;
     private UserSession userSession;
@@ -42,13 +45,21 @@ public class StatsDashboardViewController {
         habitStreakBarChart.getData().clear();
         BarChart.Series<String, Number> streakSeries = new BarChart.Series<>();
         streakSeries.setName("Current Streak");
+        int totalCompletionsThisWeek = 0;
+        int totalHabits = habits.size();
         for (Habit habit : habits) {
-            int streak = habitService.getCurrentStreak(habit.getId());
+            int streak = habitService.getCurrentStreak(habit);
             streakSeries.getData().add(new BarChart.Data<>(habit.getName(), streak));
             // For pie chart, you could use streak or completion ratio (here, just streak for demo)
             pieChartData.add(new PieChart.Data(habit.getName(), streak));
+            // Calculate completions in the last 7 days
+            totalCompletionsThisWeek += habitService.getCompletionsInLastNDays(habit.getId(), 7);
         }
         habitStreakBarChart.getData().add(streakSeries);
         habitCompletionPieChart.setData(pieChartData);
+        // Show weekly stats
+        if (weeklyStatsLabel != null) {
+            weeklyStatsLabel.setText("Habits completed in last 7 days: " + totalCompletionsThisWeek + " / " + (totalHabits * 7));
+        }
     }
 }

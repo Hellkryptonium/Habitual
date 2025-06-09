@@ -8,11 +8,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="statsDashboardPane" alignment="TOP_CENTER" spacing="20.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.StatsDashboardViewController">
+<VBox fx:id="statsDashboardPane" alignment="TOP_CENTER" spacing="20.0" styleClass="root" stylesheets="@futuristic-styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.StatsDashboardViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
     <Label text="Statistics Dashboard" styleClass="futuristic-title" />
+    <Label fx:id="weeklyStatsLabel" styleClass="label" />
     <PieChart fx:id="habitCompletionPieChart" title="Habit Completion Ratio" prefHeight="250.0" prefWidth="400.0" />
     <BarChart fx:id="habitStreakBarChart" title="Current Habit Streaks" prefHeight="250.0" prefWidth="400.0">
         <xAxis>

@@ -169,7 +169,7 @@ public class CommandLineUI {
         System.out.print("Enter habit frequency (e.g., daily, weekly): ");
         String frequency = scanner.nextLine();
 
-        if (habitService.addHabit(loggedInUserId, name, description, frequency)) {
+        if (habitService.addHabit(loggedInUserId, name, description, frequency, java.time.LocalDate.now())) {
             System.out.println("Habit added successfully!");
         } else {
             System.out.println("Failed to add habit.");
@@ -203,11 +203,15 @@ public class CommandLineUI {
         System.out.print("Enter completion date (YYYY-MM-DD): ");
         String dateStr = scanner.nextLine();
         // Basic validation for date format can be added here
-
-        if (habitService.logHabitCompletion(habitId, dateStr)) {
-            System.out.println("Habit completion logged successfully!");
-        } else {
-            System.out.println("Failed to log habit completion. Ensure habit ID is correct and date is unique for this habit.");
+        try {
+            java.time.LocalDate completionDate = java.time.LocalDate.parse(dateStr);
+            if (habitService.logHabitCompletion(habitId, completionDate)) {
+                System.out.println("Habit completion logged successfully!");
+            } else {
+                System.out.println("Failed to log habit completion. Ensure habit ID is correct and date is unique for this habit.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please use YYYY-MM-DD.");
         }
     }
 

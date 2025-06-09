@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.MainDashboardViewController">
+<BorderPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@futuristic-styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.MainDashboardViewController">
     <top>
         <VBox alignment="CENTER" spacing="10" styleClass="futuristic-panel" BorderPane.alignment="CENTER">
             <padding>
@@ -34,6 +34,7 @@
             <Button onAction="#handleViewStats" text="View Statistics" maxWidth="Infinity" />
             <Button onAction="#handleChangeSecurityQuestion" text="Change Security Question" maxWidth="Infinity" />
             <Button fx:id="toggleThemeButton" onAction="#handleToggleTheme" text="Toggle Dark/Light Mode" maxWidth="Infinity" />
+            <Button text="Notes" onAction="#handleNotesButtonAction" maxWidth="Infinity" styleClass="sidebar-button"/>
         </VBox>
     </left>
 

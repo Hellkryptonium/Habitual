@@ -4,27 +4,57 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="habitsViewPane" alignment="TOP_LEFT" spacing="15.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.HabitsViewController">
+<VBox fx:id="habitsViewPane" alignment="TOP_LEFT" spacing="20.0" styleClass="habits-view-root" stylesheets="@futuristic-styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="com.habitual.ui.javafx.HabitsViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label text="Your Habits" styleClass="futuristic-title">
-        <font>
-            <Font size="20.0" />
-        </font>
-    </Label>
+    <Label text="Habit Dashboard" styleClass="futuristic-title" />
 
-    <ListView fx:id="habitsListView" prefHeight="300.0" />
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <VBox HBox.hgrow="ALWAYS" spacing="10">
+            <Label text="Current Habits" styleClass="section-title" />
+            <ListView fx:id="habitsListView" prefHeight="300.0" />
+        </VBox>
+        <VBox spacing="10" prefWidth="300">
+            <Label text="Overall Progress" styleClass="section-title" />
+            <ProgressBar fx:id="overallProgressBar" prefWidth="Infinity" progress="0.0" style="-fx-accent: #00CFE8;" />
+            <Label fx:id="progressPercentageLabel" text="0%" styleClass="label" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label text="Streak" styleClass="section-title" />
+            <Label fx:id="streakLabel" text="Current Streak: 0 days" styleClass="label" style="-fx-font-size: 14px;"/>
+            <Label fx:id="longestStreakLabel" text="Longest Streak: 0 days" styleClass="label" style="-fx-font-size: 14px;"/>
+        </VBox>
+    </HBox>
 
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <Button fx:id="markCompleteButton" onAction="#handleMarkHabitCompleteAction" text="Mark Selected as Complete Today" styleClass="button" />
-        <Button fx:id="refreshButton" onAction="#loadHabits" text="Refresh List" styleClass="button" />
+        <Button fx:id="markCompleteButton" onAction="#handleMarkHabitCompleteAction" text="Mark Complete" styleClass="primary-action-button" />
+        <Button fx:id="addHabitButton" onAction="#handleAddHabitAction" text="Add New Habit" styleClass="button" />
+        <Button fx:id="editHabitButton" onAction="#handleEditHabitAction" text="Edit Selected" styleClass="button" />
+        <Button fx:id="deleteHabitButton" onAction="#handleDeleteHabitAction" text="Delete Selected" styleClass="button" style="-fx-border-color: #FF4747; -fx-text-fill: #FF4747;" />
+        <Button fx:id="aiSuggestionButton" onAction="#handleAISuggestionAction" text="AI Suggestions" styleClass="button" />
     </HBox>
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button fx:id="undoButton" onAction="#handleUndoAction" text="Undo" styleClass="button" />
+        <Button fx:id="redoButton" onAction="#handleRedoAction" text="Redo" styleClass="button" />
+        <Button fx:id="refreshButton" onAction="#loadHabits" text="Refresh" styleClass="button" />
+    </HBox>
+
+    <VBox fx:id="aiSuggestionBox" spacing="10" visible="false" managed="false" styleClass="ai-results-box">
+        <Label text="AI Suggested Habits" styleClass="section-title" />
+        <TextArea fx:id="aiSuggestionsTextArea" prefHeight="100" wrapText="true" editable="false" styleClass="text-area"/>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Add Selected Suggestion" onAction="#handleAddAISuggestion" styleClass="primary-action-button"/>
+            <Button text="Close" onAction="#handleCloseAISuggestions" styleClass="button"/>
+        </HBox>
+    </VBox>
 
     <Label fx:id="statusLabel" styleClass="label" />
 

@@ -1,0 +1,250 @@
+/* filepath: c:\Users\hpw\Videos\TheJavaProject\Habitual\src\main\resources\com\habitual\ui\javafx\futuristic-styles.css */
+.root {
+    -fx-background-color: #1A1A2E; /* Dark Navy Blue */
+    background-color: #1A1A2E;
+    -fx-font-family: "Roboto", "Arial", sans-serif; /* Modern sans-serif font */
+    font-family: "Roboto", "Arial", sans-serif;
+}
+
+.label {
+    -fx-text-fill: #E0E0E0; /* Light grey text */
+    -fx-font-size: 14px;
+    font-size: 14px;
+}
+
+.futuristic-title {
+    -fx-text-fill: #00CFE8; /* Bright Cyan */
+    -fx-font-size: 28px;
+    font-size: 28px;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 207, 232, 0.5), 10, 0, 0, 0);
+}
+
+.button {
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-text-fill: #00CFE8;
+    -fx-border-color: #00CFE8;
+    border-color: #00CFE8;
+    -fx-border-width: 2px;
+    border-width: 2px;
+    -fx-border-radius: 20px; /* Rounded futuristic buttons */
+    border-radius: 20px;
+    -fx-padding: 10px 20px;
+    padding: 10px 20px;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 207, 232, 0.3), 5, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: rgba(0, 207, 232, 0.1);
+    background-color: rgba(0, 207, 232, 0.1);
+    -fx-text-fill: #FFFFFF;
+    -fx-effect: dropshadow(gaussian, rgba(0, 207, 232, 0.7), 10, 0, 0, 0);
+}
+
+.button:pressed {
+    -fx-background-color: rgba(0, 207, 232, 0.2);
+    background-color: rgba(0, 207, 232, 0.2);
+}
+
+/* Primary action button style */
+.primary-action-button {
+    -fx-background-color: #00CFE8;
+    background-color: #00CFE8;
+    -fx-text-fill: #1A1A2E; /* Dark text on bright button */
+    -fx-border-color: #00CFE8;
+    border-color: #00CFE8;
+}
+
+.primary-action-button:hover {
+    -fx-background-color: #00A5B8; /* Darker cyan on hover */
+    background-color: #00A5B8;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text-field, .text-area {
+    -fx-background-color: rgba(255, 255, 255, 0.05); /* Slightly transparent dark background */
+    background-color: rgba(255, 255, 255, 0.05);
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #00CFE8;
+    border-color: #00CFE8;
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-radius: 8px;
+    border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-prompt-text-fill: #888899;
+    -fx-highlight-fill: #00CFE8;
+    -fx-highlight-text-fill: #1A1A2E;
+}
+
+.text-area .content {
+    -fx-background-color: transparent; /* Content area of TextArea */
+    background-color: transparent;
+}
+
+.list-view {
+    -fx-background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
+    -fx-border-color: #00CFE8;
+    border-color: #00CFE8;
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-text-fill: #E0E0E0;
+    -fx-padding: 10px;
+    padding: 10px;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-border-color: transparent transparent rgba(0, 207, 232, 0.2) transparent; /* Subtle bottom border */
+    border-color: transparent transparent rgba(0, 207, 232, 0.2) transparent;
+    -fx-border-width: 1px;
+    border-width: 1px;
+}
+
+.list-cell:filled:selected, .list-cell:filled:selected:focused {
+    -fx-background-color: rgba(0, 207, 232, 0.2);
+    background-color: rgba(0, 207, 232, 0.2);
+    -fx-text-fill: #FFFFFF;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: rgba(0, 207, 232, 0.1);
+    background-color: rgba(0, 207, 232, 0.1);
+}
+
+.error-label {
+    -fx-text-fill: #FF4747; /* Bright red for errors */
+    -fx-font-weight: bold;
+    font-weight: bold;
+}
+
+.ai-results-box {
+    -fx-background-color: rgba(0, 207, 232, 0.05);
+    background-color: rgba(0, 207, 232, 0.05);
+    -fx-border-color: #00CFE8;
+    border-color: #00CFE8;
+    -fx-border-width: 1px;
+    border-width: 1px;
+    -fx-border-radius: 8px;
+    border-radius: 8px;
+    -fx-padding: 15px;
+    padding: 15px;
+}
+
+/* ScrollPane and ScrollBar styling */
+.scroll-pane {
+    -fx-background-color: transparent;
+    background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+    background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-border-color: transparent;
+    border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-border-color: transparent;
+    border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #00CFE8; /* Cyan scrollbar thumb */
+    background-color: #00CFE8;
+    -fx-background-radius: 5em;
+}
+
+/* Specific for NotesView */
+.notes-view-left-panel {
+    -fx-background-color: rgba(0,0,0,0.1); /* Slightly darker panel */
+    background-color: rgba(0,0,0,0.1);
+    -fx-padding: 20px;
+    padding: 20px;
+}
+
+.notes-view-center-panel {
+    -fx-padding: 25px;
+    padding: 25px;
+}
+
+/* Specific for HabitsView */
+.habits-view-root {
+    -fx-padding: 25px;
+    padding: 25px;
+}
+
+/* Style for main titles in views */
+.view-title {
+    -fx-font-size: 24px;
+    font-size: 24px;
+    -fx-text-fill: #00CFE8;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-padding: 0 0 10 0; /* Padding below title */
+    padding: 0 0 10 0;
+}
+
+/* Style for section titles */
+.section-title {
+    -fx-font-size: 18px;
+    font-size: 18px;
+    -fx-text-fill: #E0E0E0;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-padding: 10 0 5 0;
+    padding: 10 0 5 0;
+}
+
+/* New style for link-like buttons */
+.link-button-futuristic {
+    -fx-background-color: transparent;
+    background-color: transparent;
+    -fx-text-fill: #00CFE8; /* Cyan text */
+    -fx-border-color: transparent;
+    border-color: transparent;
+    -fx-border-width: 0px; /* Explicitly 0px */
+    border-width: 0px;
+    -fx-padding: 5px; /* Minimal padding */
+    padding: 5px;
+    -fx-font-size: 14px;
+    font-size: 14px;
+    -fx-underline: false;
+    -fx-effect: none; /* No shadow for link buttons by default */
+}
+
+.link-button-futuristic:hover {
+    -fx-text-fill: #FFFFFF; /* White text on hover */
+    -fx-underline: true;
+    -fx-background-color: rgba(0, 207, 232, 0.05); /* Subtle hover background */
+    background-color: rgba(0, 207, 232, 0.05);
+}
+
+.link-button-futuristic:pressed {
+    -fx-background-color: rgba(0, 207, 232, 0.1);
+    background-color: rgba(0, 207, 232, 0.1);
+}

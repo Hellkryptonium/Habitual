@@ -4,9 +4,14 @@ import com.habitual.habits.HabitService;
 import com.habitual.habits.Habit;
 import com.habitual.schedule.ScheduleService;
 import com.habitual.schedule.ScheduledTask;
+import com.habitual.utils.NotificationUtil;
+import com.habitual.utils.MotivationalQuotes;
+import com.habitual.utils.GeminiAIService;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.fxml.FXML;
@@ -15,24 +20,32 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
 
 import java.io.IOException;
 
-public class MainDashboardViewController {
-
-    @FXML
+public class MainDashboardViewController {    @FXML
     private BorderPane mainPane;
     @FXML
     private Label welcomeLabel;
     @FXML
     private VBox contentArea;
+    @FXML
+    private Label motivationalQuoteLabel;
 
     private boolean darkMode = true; // Added dark mode flag
-
-    public void initialize() {
+    private GeminiAIService aiService;    public void initialize() {
+        aiService = new GeminiAIService();
         UserSession session = UserSession.getInstance();
         if (session.isLoggedIn()) {
             welcomeLabel.setText("Welcome, " + session.getUsername() + "!");
+            
+            // Load default motivational quote first
+            loadMotivationalQuote();
+            
+            // Then try to get AI-generated personalized quote
+            loadAIMotivationalMessage(session.getUserId());
+            
             // Show reminders/notifications
             showReminders(session.getUserId());
         } else {
@@ -60,7 +73,7 @@ public class MainDashboardViewController {
         boolean hasHabitDue = false;
         for (Habit habit : habits) {
             // If not completed today (simple version: streak is 0 today)
-            if (habitService.getCurrentStreak(habit.getId()) == 0) {
+            if (habitService.getCurrentStreak(habit) == 0) {
                 hasHabitDue = true;
                 break;
             }
@@ -77,11 +90,14 @@ public class MainDashboardViewController {
             StringBuilder msg = new StringBuilder("You have pending:");
             if (hasHabitDue) msg.append("\n- Habits to complete today");
             if (hasTaskDue) msg.append("\n- Tasks due today");
+            // Show JavaFX alert
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Reminders");
             alert.setHeaderText("Don't forget!");
             alert.setContentText(msg.toString());
             alert.show();
+            // Show system notification
+            NotificationUtil.showNotification("Habitual Reminder", msg.toString());
         }
     }
 
@@ -134,14 +150,56 @@ public class MainDashboardViewController {
 
     @FXML
     protected void handleToggleTheme() { // Handler for dark/light mode toggle
+        String darkThemePath = "/com/habitual/ui/javafx/futuristic-styles.css";
+        String lightThemePath = "/com/habitual/ui/javafx/styles-light.css";
+        
+        // Clear existing stylesheets from the main pane and all loaded content
+        mainPane.getStylesheets().clear();
+        if (contentArea.getChildren().size() > 0) {
+            Node currentContent = contentArea.getChildren().get(0);
+            if (currentContent instanceof Parent) {
+                ((Parent) currentContent).getStylesheets().clear();
+            }
+        }
+
         if (darkMode) {
-            mainPane.getStylesheets().clear();
-            mainPane.getStylesheets().add(getClass().getResource("/com/habitual/ui/javafx/styles-light.css").toExternalForm());
-            darkMode = false;
+            // Switch to light mode
+            try {
+                String lightThemeUrl = getClass().getResource(lightThemePath).toExternalForm();
+                mainPane.getStylesheets().add(lightThemeUrl);
+                if (contentArea.getChildren().size() > 0) {
+                    Node currentContent = contentArea.getChildren().get(0);
+                    if (currentContent instanceof Parent) {
+                        ((Parent) currentContent).getStylesheets().add(lightThemeUrl);
+                    }
+                }
+                darkMode = false;
+            } catch (NullPointerException e) {
+                System.err.println("Error: Could not find light theme stylesheet: " + lightThemePath);
+                // Optionally, revert to dark mode or show an error to the user
+                // For now, let's try to re-apply dark mode if light is missing
+                try {
+                    mainPane.getStylesheets().add(getClass().getResource(darkThemePath).toExternalForm());
+                } catch (NullPointerException ex) {
+                     System.err.println("Error: Could not find dark theme stylesheet either: " + darkThemePath);
+                }
+            }
         } else {
-            mainPane.getStylesheets().clear();
-            mainPane.getStylesheets().add(getClass().getResource("/com/habitual/ui/javafx/styles.css").toExternalForm());
-            darkMode = true;
+            // Switch to dark mode
+            try {
+                String darkThemeUrl = getClass().getResource(darkThemePath).toExternalForm();
+                mainPane.getStylesheets().add(darkThemeUrl);
+                 if (contentArea.getChildren().size() > 0) {
+                    Node currentContent = contentArea.getChildren().get(0);
+                    if (currentContent instanceof Parent) {
+                        ((Parent) currentContent).getStylesheets().add(darkThemeUrl);
+                    }
+                }
+                darkMode = true;
+            } catch (NullPointerException e) {
+                System.err.println("Error: Could not find dark theme stylesheet: " + darkThemePath);
+                // Optionally, show an error to the user
+            }
         }
     }
 
@@ -164,6 +222,76 @@ public class MainDashboardViewController {
             Label errorLabel = new Label("Error loading content: " + fxmlFile);
             errorLabel.setStyle("-fx-text-fill: red; -fx-font-size: 14px;");
             contentArea.getChildren().add(errorLabel);
+        }
+    }
+
+    private void loadView(String fxmlFile) {
+        try {
+            Node view = FXMLLoader.load(getClass().getResource(fxmlFile));
+            contentArea.getChildren().setAll(view);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle error loading view, maybe show an error message in the UI
+            Label errorLabel = new Label("Error loading view: " + fxmlFile);
+            contentArea.getChildren().setAll(errorLabel);
+        }
+    }
+
+    @FXML
+    private void handleNotesButtonAction() {
+        loadView("NotesView.fxml");
+    }    private void loadMotivationalQuote() {
+        String quote = MotivationalQuotes.getRandomQuote();
+        if (motivationalQuoteLabel != null) {
+            motivationalQuoteLabel.setText("\"" + quote + "\"");
+        }
+    }
+    
+    /**
+     * Loads a personalized AI-generated motivational message based on user's habits and streak data
+     * @param userId The user ID to get habit data for
+     */
+    private void loadAIMotivationalMessage(int userId) {
+        try {
+            Connection conn = com.habitual.db.DatabaseConnector.getConnection();
+            HabitService habitService = new HabitService(conn);
+            
+            // Get user's habits and completion data
+            List<Habit> habits = habitService.getHabits(userId);
+            int completedToday = 0;
+            StringBuilder streakInfo = new StringBuilder();
+            
+            for (Habit habit : habits) {
+                int streak = habitService.getCurrentStreak(habit);
+                if (streak > 0) {
+                    completedToday++;
+                    streakInfo.append(habit.getName()).append(": ").append(streak).append(" day streak. ");
+                }
+            }
+            
+            // Generate AI message asynchronously
+            final int completedTodayFinal = completedToday;
+            final String streakInfoFinal = streakInfo.toString();
+            CompletableFuture.supplyAsync(() -> {
+                try {
+                    return aiService.generateMotivationalMessage(completedTodayFinal, streakInfoFinal);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }).thenAccept(message -> {
+                if (message != null && !message.isEmpty()) {
+                    Platform.runLater(() -> {
+                        if (motivationalQuoteLabel != null) {
+                            motivationalQuoteLabel.setText("\"" + message + "\"");
+                        }
+                    });
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Fallback to regular quote
+            loadMotivationalQuote();
         }
     }
 }

@@ -1,41 +1,66 @@
 /* Light mode theme for Habitual App */
-.root, .root-pane {
+.root {
+    font-family: "Arial", sans-serif;
     -fx-font-family: "Arial", sans-serif;
-    -fx-base: #f4f4f4;
-    -fx-background: #f4f4f4;
+    background-color: #f4f4f4;
+    -fx-background-color: #f4f4f4;
     -fx-control-inner-background: #ffffff;
     -fx-accent: #007bff;
     -fx-focus-color: #007bff;
     -fx-faint-focus-color: #007bff22;
 }
-.label, .form-label {
+
+.label {
+    color: #222;
     -fx-text-fill: #222;
+    font-size: 14px;
     -fx-font-size: 14px;
 }
+
 .title-label {
+    color: #007bff;
     -fx-text-fill: #007bff;
+    font-size: 24px;
     -fx-font-size: 24px;
+    font-weight: bold;
     -fx-font-weight: bold;
 }
+
 .button-futuristic, .button {
+    background-color: #007bff;
     -fx-background-color: -fx-accent;
+    color: white;
     -fx-text-fill: white;
+    font-weight: bold;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
-    -fx-padding: 8 15 8 15;
+    border-radius: 5px;
+    -fx-background-radius: 5px;
+    padding: 8px 15px 8px 15px;
+    -fx-padding: 8px 15px 8px 15px;
 }
+
 .button-futuristic:hover, .button:hover {
+    background-color: #0056b3;
     -fx-background-color: #0056b3;
 }
+
 .text-field-futuristic, .password-field-futuristic {
+    background-color: #fff;
     -fx-background-color: #fff;
+    color: #222;
     -fx-text-fill: #222;
+    border-color: #007bff;
     -fx-border-color: #007bff;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 8 10 8 10;
+    border-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    padding: 8px 10px 8px 10px;
+    -fx-padding: 8px 10px 8px 10px;
 }
+
 .error-label {
+    color: #d32f2f;
     -fx-text-fill: #d32f2f;
+    font-size: 13px;
     -fx-font-size: 13px;
 }

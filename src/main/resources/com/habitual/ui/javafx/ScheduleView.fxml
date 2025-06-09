@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="scheduleViewPane" alignment="TOP_LEFT" spacing="15.0" styleClass="root" stylesheets="@styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.ScheduleViewController">
+<VBox fx:id="scheduleViewPane" alignment="TOP_LEFT" spacing="15.0" styleClass="root" stylesheets="@futuristic-styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="com.habitual.ui.javafx.ScheduleViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -24,6 +24,7 @@
     <HBox spacing="10" alignment="CENTER_LEFT">
         <Button fx:id="markTaskCompleteButton" onAction="#handleMarkTaskCompleteAction" text="Mark Selected as Complete" styleClass="button" />
         <Button fx:id="refreshTasksButton" onAction="#loadTasks" text="Refresh List" styleClass="button" />
+        <Button fx:id="deleteTaskButton" text="Delete Selected Task" styleClass="button" />
     </HBox>
 
     <Label fx:id="statusLabel" styleClass="label" />
